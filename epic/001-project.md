@@ -639,6 +639,152 @@ locales/
 
 Para exemplos detalhados de implementação de i18n, consulte: [**008-i18n-examples.md**](./008-i18n-examples.md)
 
+## Model Context Protocol (MCP)
+
+### Integração com LLMs via Protocolo Padronizado
+
+O Model Context Protocol (MCP) é um protocolo padronizado que permite a comunicação entre aplicações LLM e fontes de contexto externas. A integração do MCP na Clean Architecture proporciona uma ponte poderosa entre modelos de IA e sistemas empresariais.
+
+#### Stack do MCP
+
+##### TypeScript SDK
+- **@modelcontextprotocol/sdk**: SDK oficial para criar clients e servers MCP
+- **Streamable HTTP Transport**: Suporte completo para HTTP com SSE streaming
+- **OAuth 2.0 Integration**: Autenticação e autorização built-in
+- **Session Management**: Gerenciamento de sessões com persistência
+- **Event Store**: Armazenamento de eventos para auditoria e resumability
+
+##### Transports Suportados
+- **Streamable HTTP + SSE**: Transport moderno com Server-Sent Events
+- **Legacy SSE**: Compatibilidade com versões anteriores
+- **Stdio**: Para CLIs e ferramentas locais
+- **WebSocket**: Comunicação bidirecional em tempo real (roadmap)
+
+#### Arquitetura Multi-tenant
+
+##### Isolamento por Tenant
+- Servers MCP independentes por tenant
+- Configuração de tools e resources específicos
+- Rate limiting e quotas personalizadas
+- Domínios e subdomínios dedicados
+
+##### Segurança e Autenticação
+- **OAuth 2.0 Proxy**: Integração com providers externos
+- **JWT Tokens**: Autenticação stateless
+- **CORS Configuration**: Controle de origem por tenant
+- **DNS Rebinding Protection**: Proteção contra ataques
+- **Rate Limiting**: Controle de requisições por tenant
+
+#### Funcionalidades Core
+
+##### Tools (Ferramentas)
+- Registro dinâmico de ferramentas
+- Input validation com Zod schemas
+- Handlers assíncronos com contexto
+- Enable/disable em runtime
+- Versionamento de tools
+
+##### Resources (Recursos)
+- Recursos estáticos e dinâmicos
+- Templates com parâmetros
+- Completions inteligentes
+- MIME type support
+- Resource links para eficiência
+
+##### Prompts
+- Templates de prompts reutilizáveis
+- Argumentos com validação
+- Context-aware completions
+- Multi-language support
+
+##### Sampling (LLM Integration)
+- Chamadas diretas ao LLM
+- Contexto enriquecido
+- Token management
+- Response streaming
+
+#### Desktop Extensions (DXT)
+
+##### Empacotamento de MCP Servers
+- **Manifest Format**: Configuração declarativa
+- **Runtime Support**: Node.js, Python, Binary
+- **Dependency Bundling**: Inclusão automática de dependências
+- **One-click Install**: Instalação simplificada em Claude Desktop
+
+##### CLI Tools
+```bash
+# Inicializar manifest
+dxt init
+
+# Validar manifest
+dxt validate
+
+# Empacotar extensão
+dxt pack
+
+# Assinar extensão
+dxt sign
+```
+
+#### Observabilidade e Monitoramento
+
+##### Telemetria Integrada
+- **Distributed Tracing**: Rastreamento de requisições
+- **Metrics Collection**: Métricas de performance
+- **Event Logging**: Logs estruturados
+- **Session Tracking**: Acompanhamento de sessões
+- **Error Tracking**: Captura e análise de erros
+
+##### Métricas Principais
+- Request latency e throughput
+- Tool execution time
+- Resource access patterns
+- Session duration e concurrency
+- Error rates por tenant
+
+#### Deployment e Escalabilidade
+
+##### Arquitetura de Deploy
+- **Horizontal Scaling**: Múltiplas instâncias por tenant
+- **Load Balancing**: Distribuição inteligente com Nginx
+- **Session Affinity**: Sticky sessions quando necessário
+- **Graceful Shutdown**: Encerramento sem perda de dados
+
+##### Configuração de Produção
+- Docker containers otimizados
+- Kubernetes ready com Helm charts
+- Auto-scaling baseado em métricas
+- Blue-green deployments
+- Rollback automático
+
+#### Casos de Uso
+
+##### Integração com Bancos de Dados
+- Query tools seguras por tenant
+- Schema resources dinâmicos
+- Migration management
+- Backup automation
+
+##### APIs Externas
+- Proxy configurável por tenant
+- Rate limiting e retry logic
+- Response caching
+- Error handling robusto
+
+##### File System Access
+- Workspace isolation
+- Path validation
+- MIME type detection
+- Streaming de arquivos grandes
+
+##### Business Logic Exposure
+- Use cases como tools
+- Domain events como resources
+- Workflow automation
+- Decision support systems
+
+Para exemplos detalhados de implementação do MCP com Clean Architecture, consulte: [**009-mcp-integration.md**](./009-mcp-integration.md)
+
 ## Exemplos
 
 Para exemplos práticos de implementação e código detalhado, consulte: [**002-examples.md**](./002-examples.md)

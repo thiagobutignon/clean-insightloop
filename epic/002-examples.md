@@ -150,6 +150,46 @@ Este documento serve como índice para os exemplos práticos de implementação 
   - Bundle splitting
   - Cache strategy
 
+### 7. Model Context Protocol (MCP) Layer
+[**→ Ver exemplos detalhados de integração MCP**](./009-mcp-integration.md)
+
+#### Conteúdo:
+- **Arquitetura MCP** - Integração com Clean Architecture
+  - Domain entities para MCP
+  - Application services
+  - Infrastructure transports
+  - Presentation controllers
+- **Transports** - Implementações de comunicação
+  - Streamable HTTP + SSE
+  - Legacy SSE compatibility
+  - Session management
+  - Event store persistence
+- **Multi-tenancy** - Isolamento por tenant
+  - Tenant-specific servers
+  - Resource isolation
+  - Rate limiting
+  - Custom configurations
+- **Segurança** - Autenticação e autorização
+  - OAuth 2.0 integration
+  - JWT tokens
+  - CORS configuration
+  - DNS rebinding protection
+- **Tools & Resources** - Registro dinâmico
+  - Dynamic tools registration
+  - Resource templates
+  - Prompt management
+  - Completions
+- **Desktop Extensions (DXT)** - Empacotamento
+  - Manifest creation
+  - Dependency bundling
+  - CLI tools
+  - Distribution
+- **Observabilidade** - Monitoramento
+  - OpenTelemetry integration
+  - Metrics collection
+  - Distributed tracing
+  - Error tracking
+
 ## Como Usar Este Guia
 
 1. Navegue até a camada de interesse
