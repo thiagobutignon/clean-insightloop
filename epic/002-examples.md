@@ -190,6 +190,51 @@ Este documento serve como índice para os exemplos práticos de implementação 
   - Distributed tracing
   - Error tracking
 
+### 8. AI Integration Layer
+[**→ Ver exemplos detalhados de integração de IA**](./010-ai-integration.md)
+
+#### Conteúdo:
+- **AI Providers** - Múltiplos provedores de IA
+  - Anthropic Claude integration
+  - OpenAI GPT integration
+  - Google Gemini integration
+  - Groq fast inference
+- **Vercel AI SDK** - Streaming e tool calling
+  - StreamText com SSE
+  - Tool calling nativo
+  - MCP client integration
+  - Multi-provider support
+- **Code Generation** - Padrão Open Lovable
+  - XML-based package detection
+  - Real-time file creation
+  - Sandbox execution
+  - Progress streaming
+- **Tool Execution** - Ferramentas customizadas
+  - Database tools
+  - File system tools
+  - Web search tools
+  - Code execution tools
+- **Session Management** - Gerenciamento de sessões
+  - Message history
+  - Context persistence
+  - Multi-tenant isolation
+  - State management
+- **Sandbox Services** - Execução segura
+  - E2B-inspired implementation
+  - Docker containers
+  - WebContainers support
+  - Resource isolation
+- **Frontend Components** - React integration
+  - AI chat components
+  - Code generation UI
+  - Real-time streaming
+  - Progress tracking
+- **Observabilidade** - Métricas específicas de IA
+  - AI request metrics
+  - Token usage tracking
+  - Tool call monitoring
+  - Error tracking
+
 ## Como Usar Este Guia
 
 1. Navegue até a camada de interesse

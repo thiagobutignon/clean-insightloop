@@ -785,6 +785,225 @@ dxt sign
 
 Para exemplos detalhados de implementação do MCP com Clean Architecture, consulte: [**009-mcp-integration.md**](./009-mcp-integration.md)
 
+## AI Integration e Code Generation
+
+### Integração com Modelos de Linguagem (LLMs)
+
+A integração de IA no sistema utiliza uma arquitetura híbrida que combina o **Vercel AI SDK** com o **Model Context Protocol (MCP)**, permitindo comunicação eficiente com modelos de linguagem e execução segura de ferramentas.
+
+#### Stack de AI Integration
+
+##### AI Providers Suportados
+- **Anthropic Claude**: Modelos Claude-3.5-Sonnet para raciocínio avançado
+- **OpenAI GPT**: GPT-4o-mini para uso geral
+- **Google Gemini**: Gemini-2.0-flash-exp para multimodalidade
+- **Groq**: Llama-3.3-70b-versatile para inferência rápida
+
+##### SDK e Ferramentas
+- **@ai-sdk/anthropic, @ai-sdk/openai, @ai-sdk/google, @ai-sdk/groq**: Clientes específicos
+- **ai**: Vercel AI SDK core para streaming e tool calling
+- **@modelcontextprotocol/sdk**: Integração nativa com MCP
+- **Zod**: Validação de schemas para tools
+
+#### Funcionalidades Principais
+
+##### 1. AI Chat com Streaming
+- **Resposta em tempo real**: Server-Sent Events (SSE) para streaming
+- **Tool calling**: Execução de ferramentas durante a conversa
+- **Context management**: Manutenção do histórico de mensagens
+- **Multi-provider**: Suporte transparente a diferentes LLMs
+
+##### 2. Code Generation (Padrão Open Lovable)
+- **Geração dinâmica**: Criação de aplicações React/TypeScript completas
+- **Package detection**: Detecção automática de dependências via XML tags
+- **Sandbox execution**: Execução segura em ambientes isolados
+- **Real-time feedback**: Progress streaming durante a geração
+
+##### 3. Tool Execution
+- **Custom tools**: Ferramentas específicas do domínio
+- **MCP integration**: Ferramentas via Model Context Protocol
+- **Database access**: Queries seguras por tenant
+- **File operations**: Manipulação de arquivos com isolamento
+- **Web search**: Busca na web com rate limiting
+
+#### Arquitetura de AI Integration
+
+##### Domain Layer
+```typescript
+// Entidades centrais para IA
+export class AIProvider {
+  constructor(
+    public readonly type: 'anthropic' | 'openai' | 'google' | 'groq',
+    public readonly apiKey: string,
+    public readonly model: string
+  ) {}
+}
+
+export class AISession {
+  constructor(
+    public readonly id: string,
+    public readonly tenantId: string,
+    public readonly systemPrompt: string,
+    public readonly messages: Message[],
+    public readonly availableTools: Tool[]
+  ) {}
+}
+```
+
+##### Application Layer
+- **AIChatUseCase**: Orquestração de conversas com IA
+- **CodeGenerationUseCase**: Geração de código com Open Lovable pattern
+- **ToolExecutionUseCase**: Execução segura de ferramentas
+- **SessionManagementUseCase**: Gerenciamento de sessões de IA
+
+##### Infrastructure Layer
+- **VercelAIService**: Integração com Vercel AI SDK
+- **MCPClientService**: Cliente para Model Context Protocol
+- **SandboxService**: Execução segura de código (E2B-inspired)
+- **ToolRegistry**: Registro dinâmico de ferramentas
+
+#### Padrões de Implementação
+
+##### 1. XML-based Code Generation
+```xml
+<explanation>
+Creating a React application with routing and state management.
+</explanation>
+
+<packages>
+react-router-dom
+axios
+@heroicons/react
+zustand
+</packages>
+
+<file path="src/App.tsx">
+import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+
+function App() {
+  return (
+    <Router>
+      {/* App content */}
+    </Router>
+  );
+}
+
+export default App;
+</file>
+
+<command>npm run dev</command>
+```
+
+##### 2. Streaming Response Processing
+```typescript
+// Real-time processing de respostas da IA
+const result = await streamText({
+  model: anthropic('claude-3-5-sonnet-20241022'),
+  messages,
+  tools: await mcpClient.tools(),
+  onFinish: async (finishResult) => {
+    await saveMessage(finishResult);
+    await mcpClient.close();
+  },
+});
+```
+
+##### 3. Tool Integration
+```typescript
+// Integração transparente entre custom tools e MCP
+const tools = {
+  ...customTools,
+  ...(await mcpClient.tools()),
+};
+
+const response = await streamText({
+  model,
+  messages,
+  tools,
+});
+```
+
+#### Segurança e Multi-tenancy
+
+##### Isolamento por Tenant
+- **Provider separation**: Configurações de IA por tenant
+- **Tool access control**: Permissões específicas por tenant
+- **Sandbox isolation**: Ambientes isolados para execução
+- **Rate limiting**: Controle de uso por tenant
+
+##### Validação e Sanitização
+- **Input validation**: Zod schemas para todos os parâmetros
+- **Path sanitization**: Validação de caminhos de arquivo
+- **Query filtering**: Apenas SELECT permitido em database tools
+- **Content filtering**: Filtragem de conteúdo sensível
+
+#### Observabilidade e Métricas
+
+##### Telemetria Específica de IA
+- **ai.requests**: Total de requisições por provider/modelo
+- **ai.request.duration**: Latência das requisições
+- **ai.tokens.usage**: Uso de tokens (input/output)
+- **ai.tool.calls**: Chamadas de ferramentas
+- **ai.errors**: Erros por tipo e provider
+
+##### Distributed Tracing
+```typescript
+@Span('AIChat.execute')
+async execute(input: AIChatInput): Promise<AIChatOutput> {
+  const span = this.telemetryService.getActiveSpan();
+  span?.setAttributes({
+    'ai.provider': provider.type,
+    'ai.model': provider.getModel(),
+    'ai.session_id': session.id,
+  });
+  // ... implementação
+}
+```
+
+#### Frontend Integration
+
+##### React Components
+- **AIChat**: Componente de chat com streaming
+- **CodeGeneration**: Interface para geração de código
+- **ToolExecution**: Visualização de execução de ferramentas
+- **SandboxViewer**: Preview de código gerado
+
+##### Real-time Updates
+- **Server-Sent Events**: Streaming de respostas
+- **Progress tracking**: Acompanhamento de progresso
+- **Error handling**: Tratamento robusto de erros
+- **Offline support**: Cache para resiliência
+
+#### Deployment e Escalabilidade
+
+##### Configuração de Produção
+```typescript
+const aiConfig = {
+  providers: {
+    anthropic: { apiKey: process.env.ANTHROPIC_API_KEY },
+    openai: { apiKey: process.env.OPENAI_API_KEY },
+    groq: { apiKey: process.env.GROQ_API_KEY },
+  },
+  mcp: {
+    enabled: process.env.MCP_ENABLED === 'true',
+    endpoint: process.env.MCP_ENDPOINT,
+  },
+  sandbox: {
+    provider: 'e2b',
+    timeout: 120000,
+  },
+};
+```
+
+##### Horizontal Scaling
+- **Stateless design**: Sessões persistidas em banco
+- **Load balancing**: Distribuição inteligente
+- **Resource pooling**: Pool de sandboxes reutilizáveis
+- **Auto-scaling**: Baseado em métricas de uso
+
+Para exemplos detalhados de implementação de AI Integration, consulte: [**010-ai-integration.md**](./010-ai-integration.md)
+
 ## Exemplos
 
 Para exemplos práticos de implementação e código detalhado, consulte: [**002-examples.md**](./002-examples.md)
