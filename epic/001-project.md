@@ -1004,6 +1004,228 @@ const aiConfig = {
 
 Para exemplos detalhados de implementação de AI Integration, consulte: [**010-ai-integration.md**](./010-ai-integration.md)
 
+## Claude Code - Ferramenta Agentic de Programação
+
+### Assistente de Programação Inteligente
+
+O **Claude Code** é uma ferramenta de programação agentic desenvolvida pela Anthropic que opera no terminal e compreende bases de código para acelerar o desenvolvimento. Esta ferramenta representa um avanço significativo na programação assistida por IA, alinhando-se perfeitamente com os princípios de Clean Architecture.
+
+#### Características Principais
+
+##### 1. Programação Agentic
+- **Execução autônoma**: Realiza tarefas complexas sem supervisão constante
+- **Tomada de decisões**: Analisa contexto e toma decisões arquiteturais
+- **Iteração inteligente**: Refina soluções baseado em feedback
+- **Compreensão profunda**: Entende padrões e convenções do código
+
+##### 2. Integração Nativa com MCP
+```bash
+# Configuração de servidores MCP
+claude mcp add --transport sse github https://api.github.com/mcp
+claude mcp add --transport http notion https://mcp.notion.com/mcp
+claude mcp add --transport sse linear https://mcp.linear.app/sse
+
+# Uso em comandos naturais
+> "@github:issue://123 - implement the feature described in this issue"
+> "@postgres:schema://users - analyze the user table structure"
+```
+
+##### 3. Comandos em Linguagem Natural
+```bash
+# Implementação seguindo Clean Architecture
+> "Add user authentication using JWT following our Clean Architecture patterns"
+
+# Análise de qualidade arquitetural
+> "Check if our codebase follows Clean Architecture and SOLID principles"
+
+# Refactoring inteligente
+> "Refactor the user service to follow Clean Architecture principles"
+```
+
+#### Capacidades Técnicas
+
+##### Análise de Código
+- **Compreensão arquitetural**: Identifica padrões de Clean Architecture
+- **Detecção de violações**: Encontra problemas de design e dependências
+- **Sugestões de melhoria**: Propõe refactorings e otimizações
+- **Análise de segurança**: Identifica vulnerabilidades potenciais
+
+##### Geração de Código
+- **Seguimento de padrões**: Mantém consistência arquitetural
+- **Testes automáticos**: Gera testes para todas as camadas
+- **Documentação**: Atualiza documentação automaticamente
+- **Git workflows**: Gerencia branches, commits e pull requests
+
+##### SDKs Programáticos
+```typescript
+// TypeScript SDK
+import { ClaudeCode } from '@anthropic-ai/claude-code';
+
+const claude = new ClaudeCode({
+  apiKey: process.env.ANTHROPIC_API_KEY,
+  projectPath: './my-project',
+});
+
+const result = await claude.execute({
+  command: 'implement user authentication',
+  options: {
+    followArchitecture: 'clean',
+    generateTests: true,
+    updateDocs: true,
+  },
+});
+```
+
+```python
+# Python SDK
+import claude_code_sdk
+
+claude = claude_code_sdk.ClaudeCode(
+    api_key=os.environ['ANTHROPIC_API_KEY'],
+    project_path='./my-project'
+)
+
+result = claude.execute(
+    command='check code quality and suggest improvements',
+    options={'architecture_style': 'clean'}
+)
+```
+
+#### Configuração de Projeto
+
+##### CLAUDE.md - Contexto Arquitetural
+```markdown
+# Configuração do Projeto
+
+## Arquitetura
+Este projeto segue **Clean Architecture** com estrutura feature-based.
+
+## Tecnologias
+- Node.js + TypeScript
+- Express.js + PostgreSQL
+- OpenTelemetry + MCP
+
+## Padrões
+- SOLID principles
+- Dependency injection
+- Test coverage > 90%
+```
+
+##### .mcp.json - Servidores MCP
+```json
+{
+  "mcpServers": {
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {"GITHUB_TOKEN": "${GITHUB_TOKEN}"}
+    },
+    "postgres": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-postgres"], 
+      "env": {"DATABASE_URL": "${DATABASE_URL}"}
+    }
+  }
+}
+```
+
+#### GitHub Actions Integration
+
+```yaml
+# CI/CD com Claude Code
+name: Claude Code Review
+on: [pull_request]
+
+jobs:
+  claude-review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Claude Code Review
+        uses: anthropics/claude-code-action@v1
+        with:
+          command: |
+            Review this PR for:
+            - Clean Architecture compliance
+            - SOLID principles adherence
+            - Security best practices
+            - Test coverage
+```
+
+#### Benefícios para Clean Architecture
+
+##### Manutenção de Padrões
+- **Consistência arquitetural**: Mantém padrões estabelecidos
+- **Validação automática**: Verifica conformidade com Clean Architecture
+- **Refactoring inteligente**: Sugere melhorias sem quebrar design
+- **Detecção precoce**: Identifica violações antes do commit
+
+##### Produtividade Avançada
+- **Geração contextual**: Cria código seguindo padrões do projeto
+- **Testes automáticos**: Gera testes para todas as camadas
+- **Documentação dinâmica**: Mantém docs sempre atualizados
+- **Code reviews**: Análise automática de pull requests
+
+##### Qualidade Assegurada
+- **Análise estática**: Verifica qualidade de código continuamente
+- **Security scanning**: Identifica vulnerabilidades de segurança
+- **Performance analysis**: Detecta problemas de performance
+- **Architecture validation**: Garante conformidade arquitetural
+
+#### Casos de Uso Avançados
+
+##### Desenvolvimento de Features
+```bash
+# Implementação completa de feature
+> "Create a complete user authentication system with:
+   - Domain entities and value objects
+   - Application use cases with validation
+   - Infrastructure repositories with PostgreSQL
+   - Presentation controllers with Express
+   - Unit tests for all layers
+   - Integration tests for endpoints"
+```
+
+##### Análise e Refactoring
+```bash
+# Análise arquitetural profunda
+> "Analyze our codebase architecture and suggest improvements for:
+   - SOLID principles compliance
+   - Dependency direction correctness
+   - Layer isolation verification
+   - Performance optimization opportunities"
+```
+
+##### Integração com Ferramentas
+```bash
+# Uso de MCP para contexto externo
+> "Based on @jira:ticket://AUTH-123 and @github:pr://456, 
+   implement the authentication feature following our 
+   Clean Architecture patterns"
+```
+
+#### Comparação com Nossa Implementação
+
+| Aspecto | Nossa Implementação | Claude Code |
+|---------|-------------------|-------------|
+| **MCP Integration** | ✅ Completa com multi-tenancy | ✅ Nativa e robusta |
+| **Clean Architecture** | ✅ Base do projeto | ✅ Entende e valida |
+| **Tool Calling** | ✅ Vercel AI SDK | ✅ Sistema nativo |
+| **Code Generation** | ✅ Open Lovable pattern | ✅ Contextual e inteligente |
+| **Observability** | ✅ OpenTelemetry completo | ⚠️ Básica |
+| **Multi-tenancy** | ✅ Implementação robusta | ⚠️ Em desenvolvimento |
+
+#### Sinergia com Nossa Arquitetura
+
+O Claude Code complementa perfeitamente nossa implementação de Clean Architecture:
+
+1. **Ferramenta de desenvolvimento**: Acelera implementação seguindo nossos padrões
+2. **Validador arquitetural**: Garante conformidade com Clean Architecture
+3. **Assistente MCP**: Facilita uso do ecossistema MCP que implementamos
+4. **Quality gate**: Adiciona camada extra de validação de qualidade
+
+Para documentação completa sobre Claude Code, consulte: [**011-claude-code.md**](./011-claude-code.md)
+
 ## Exemplos
 
 Para exemplos práticos de implementação e código detalhado, consulte: [**002-examples.md**](./002-examples.md)

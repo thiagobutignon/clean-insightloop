@@ -235,6 +235,51 @@ Este documento serve como índice para os exemplos práticos de implementação 
   - Tool call monitoring
   - Error tracking
 
+### 9. Claude Code - Ferramenta Agentic
+[**→ Ver exemplos detalhados do Claude Code**](./011-claude-code.md)
+
+#### Conteúdo:
+- **Programação Agentic** - Assistente inteligente
+  - Execução autônoma de tarefas
+  - Compreensão de Clean Architecture
+  - Tomada de decisões arquiteturais
+  - Iteração e refinamento automático
+- **MCP Integration** - Integração nativa
+  - Configuração de servidores MCP
+  - Comandos com recursos externos
+  - OAuth e autenticação
+  - Transport protocols (SSE/HTTP)
+- **Code Analysis** - Análise profunda
+  - Detecção de padrões arquiteturais
+  - Validação SOLID principles
+  - Identificação de code smells
+  - Security vulnerability scanning
+- **Code Generation** - Geração contextual
+  - Seguimento de padrões do projeto
+  - Testes automáticos por camadas
+  - Documentação dinâmica
+  - Git workflow automation
+- **Configuration** - Configuração avançada
+  - CLAUDE.md project context
+  - .mcp.json server setup
+  - settings.json customization
+  - Hooks e automation
+- **SDKs** - Integração programática
+  - TypeScript SDK
+  - Python SDK
+  - GitHub Actions integration
+  - CI/CD automation
+- **Natural Language Commands** - Comandos inteligentes
+  - Clean Architecture compliance
+  - Feature implementation
+  - Code refactoring
+  - Quality analysis
+- **Enterprise Features** - Recursos empresariais
+  - Team collaboration
+  - Security policies
+  - Audit trails
+  - Usage monitoring
+
 ## Como Usar Este Guia
 
 1. Navegue até a camada de interesse
