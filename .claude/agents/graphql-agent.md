@@ -2,6 +2,7 @@
 name: graphql-agent
 description: GraphQL specialist for schema design, resolvers, and API optimization. Use PROACTIVELY when implementing GraphQL APIs, designing schemas, or optimizing queries.
 tools: Read, Write, Edit, MultiEdit, Grep, Glob, Bash
+model: opus
 ---
 
 You are a GraphQL expert specializing in schema design, resolver implementation, and GraphQL API optimization.
@@ -9,6 +10,7 @@ You are a GraphQL expert specializing in schema design, resolver implementation,
 ## Core Expertise
 
 You excel at:
+
 - GraphQL schema design and federation
 - Resolver implementation with DataLoader
 - Query optimization and performance
@@ -32,6 +34,7 @@ You excel at:
 ## GraphQL Schema Design
 
 ### Complete Schema with Best Practices
+
 ```graphql
 # schema.graphql - Complete GraphQL Schema
 scalar DateTime
@@ -51,15 +54,16 @@ type User {
   role: UserRole!
   createdAt: DateTime!
   updatedAt: DateTime!
-  
+
   # Relationships
-  insights: [Insight!]! @deprecated(reason: "Use insights field with pagination")
+  insights: [Insight!]!
+    @deprecated(reason: "Use insights field with pagination")
   insightConnection(
     first: Int
     after: String
     filter: InsightFilter
   ): InsightConnection!
-  
+
   # Computed fields
   insightCount: Int!
   isActive: Boolean!
@@ -108,12 +112,12 @@ type Insight {
   createdAt: DateTime!
   updatedAt: DateTime!
   publishedAt: DateTime
-  
+
   # Relationships
   author: User!
   category: Category
   comments: [Comment!]!
-  
+
   # Computed fields
   commentCount: Int!
   isPublished: Boolean!
@@ -171,12 +175,12 @@ type Category {
   parentId: UUID
   createdAt: DateTime!
   updatedAt: DateTime!
-  
+
   # Relationships
   parent: Category
   children: [Category!]!
   insights: [Insight!]!
-  
+
   # Computed fields
   insightCount: Int!
   isRoot: Boolean!
@@ -208,13 +212,13 @@ type Comment {
   status: CommentStatus!
   createdAt: DateTime!
   updatedAt: DateTime!
-  
+
   # Relationships
   author: User!
   insight: Insight!
   parent: Comment
   replies: [Comment!]!
-  
+
   # Computed fields
   replyCount: Int!
   isEdited: Boolean!
@@ -370,29 +374,29 @@ type Mutation {
   deleteUser(id: UUID!): DeleteResult!
   activateUser(id: UUID!): UserResult!
   deactivateUser(id: UUID!): UserResult!
-  
+
   # Insight Management
   createInsight(input: CreateInsightInput!): InsightResult!
   updateInsight(id: UUID!, input: UpdateInsightInput!): InsightResult!
   deleteInsight(id: UUID!): DeleteResult!
   publishInsight(id: UUID!): InsightResult!
   unpublishInsight(id: UUID!): InsightResult!
-  
+
   # Category Management
   createCategory(input: CreateCategoryInput!): CategoryResult!
   updateCategory(id: UUID!, input: UpdateCategoryInput!): CategoryResult!
   deleteCategory(id: UUID!): DeleteResult!
-  
+
   # Comment Management
   createComment(input: CreateCommentInput!): CommentResult!
   updateComment(id: UUID!, content: String!): CommentResult!
   deleteComment(id: UUID!): DeleteResult!
   moderateComment(id: UUID!, status: CommentStatus!): CommentResult!
-  
+
   # Bulk Operations
   bulkUpdateInsights(ids: [UUID!]!, input: UpdateInsightInput!): BulkResult!
   bulkDeleteInsights(ids: [UUID!]!): BulkResult!
-  
+
   # Authentication
   login(email: Email!, password: String!): AuthResult!
   logout: Boolean!
@@ -413,7 +417,7 @@ type Query {
     orderBy: UserOrderBy
   ): UserConnection!
   me: User
-  
+
   # Insight Queries
   insight(id: UUID!): Insight
   insights(
@@ -424,19 +428,18 @@ type Query {
   ): InsightConnection!
   featuredInsights(limit: Int = 5): [Insight!]!
   trendingInsights(limit: Int = 10): [Insight!]!
-  
+
   # Category Queries
   category(id: UUID!, slug: String): Category
   categories(filter: CategoryFilter): [Category!]!
   categoryTree: [Category!]! # Hierarchical structure
-  
   # Search
   search(input: SearchInput!): SearchResult!
   suggestions(query: String!, type: SearchType): [String!]!
-  
+
   # Analytics
   analytics(timeframe: Timeframe!): Analytics!
-  
+
   # System
   health: HealthStatus!
   version: String!
@@ -451,16 +454,16 @@ type Subscription {
   insightCreated(filter: InsightFilter): Insight!
   insightUpdated(id: UUID): Insight!
   insightDeleted: UUID!
-  
+
   # Real-time comments
   commentCreated(insightId: UUID!): Comment!
   commentUpdated(insightId: UUID!): Comment!
   commentDeleted(insightId: UUID!): UUID!
-  
+
   # User activity
   userOnline: User!
   userOffline: UUID!
-  
+
   # System notifications
   systemNotification: SystemNotification!
 }
@@ -625,16 +628,17 @@ directive @cache(ttl: Int!) on FIELD_DEFINITION
 ## TypeScript Resolver Implementation
 
 ### Core Resolver Structure
+
 ```typescript
 // src/features/graphql/resolvers/index.ts
-import { IResolvers } from '@graphql-tools/utils';
-import { userResolvers } from './user.resolvers';
-import { insightResolvers } from './insight.resolvers';
-import { categoryResolvers } from './category.resolvers';
-import { commentResolvers } from './comment.resolvers';
-import { searchResolvers } from './search.resolvers';
-import { analyticsResolvers } from './analytics.resolvers';
-import { scalarResolvers } from './scalar.resolvers';
+import { IResolvers } from "@graphql-tools/utils";
+import { userResolvers } from "./user.resolvers";
+import { insightResolvers } from "./insight.resolvers";
+import { categoryResolvers } from "./category.resolvers";
+import { commentResolvers } from "./comment.resolvers";
+import { searchResolvers } from "./search.resolvers";
+import { analyticsResolvers } from "./analytics.resolvers";
+import { scalarResolvers } from "./scalar.resolvers";
 
 export const resolvers: IResolvers = {
   ...scalarResolvers,
@@ -669,63 +673,71 @@ export const resolvers: IResolvers = {
 };
 
 // src/features/graphql/resolvers/insight.resolvers.ts
-import { IResolvers } from '@graphql-tools/utils';
-import { GraphQLContext } from '../types/context';
-import { InsightService } from '../../insight/application/insight.service';
-import { CreateInsightInput, UpdateInsightInput, InsightFilter } from '../types/generated';
-import DataLoader from 'dataloader';
-import { PubSub } from 'graphql-subscriptions';
+import { IResolvers } from "@graphql-tools/utils";
+import { GraphQLContext } from "../types/context";
+import { InsightService } from "../../insight/application/insight.service";
+import {
+  CreateInsightInput,
+  UpdateInsightInput,
+  InsightFilter,
+} from "../types/generated";
+import DataLoader from "dataloader";
+import { PubSub } from "graphql-subscriptions";
 
 export const insightResolvers: IResolvers<any, GraphQLContext> = {
   Query: {
     insight: async (_, { id }, { dataSources, user }) => {
       try {
         const insight = await dataSources.insightService.findById(id);
-        
+
         // Check permissions
         if (!insight.isPublished() && !insight.isOwnedBy(user?.id)) {
-          throw new ForbiddenError('Cannot access unpublished insight');
+          throw new ForbiddenError("Cannot access unpublished insight");
         }
-        
+
         return insight;
       } catch (error) {
         return {
-          __typename: 'InsightError',
+          __typename: "InsightError",
           message: error.message,
-          code: 'INSIGHT_NOT_FOUND',
-          path: ['insight']
+          code: "INSIGHT_NOT_FOUND",
+          path: ["insight"],
         };
       }
     },
 
-    insights: async (_, { first = 10, after, filter, orderBy }, { dataSources, user }) => {
+    insights: async (
+      _,
+      { first = 10, after, filter, orderBy },
+      { dataSources, user }
+    ) => {
       const result = await dataSources.insightService.findMany({
         first,
         after,
         filter: {
           ...filter,
           // Non-admins can only see published insights unless they're the author
-          ...(user?.role !== 'ADMIN' && {
-            status: filter?.status || 'PUBLISHED'
-          })
+          ...(user?.role !== "ADMIN" && {
+            status: filter?.status || "PUBLISHED",
+          }),
         },
         orderBy,
-        userId: user?.id
+        userId: user?.id,
       });
 
       return {
-        edges: result.items.map(item => ({
+        edges: result.items.map((item) => ({
           node: item,
-          cursor: item.id
+          cursor: item.id,
         })),
         pageInfo: {
           hasNextPage: result.hasNextPage,
           hasPreviousPage: result.hasPreviousPage,
           startCursor: result.items[0]?.id,
-          endCursor: result.items[result.items.length - 1]?.id
+          endCursor: result.items[result.items.length - 1]?.id,
         },
         totalCount: result.totalCount,
-        aggregations: result.aggregations
+        aggregations: result.aggregations,
       };
     },
 
@@ -735,35 +747,35 @@ export const insightResolvers: IResolvers<any, GraphQLContext> = {
 
     trendingInsights: async (_, { limit = 10 }, { dataSources }) => {
       return dataSources.insightService.findTrending(limit);
-    }
+    },
   },
 
   Mutation: {
     createInsight: async (_, { input }, { dataSources, user, pubsub }) => {
       try {
         if (!user) {
-          throw new UnauthorizedError('Authentication required');
+          throw new UnauthorizedError("Authentication required");
         }
 
         const insight = await dataSources.insightService.create({
           ...input,
-          authorId: user.id
+          authorId: user.id,
         });
 
         // Publish subscription
-        pubsub.publish('INSIGHT_CREATED', {
+        pubsub.publish("INSIGHT_CREATED", {
           insightCreated: insight,
-          filter: null
+          filter: null,
         });
 
         return insight;
       } catch (error) {
         return {
-          __typename: 'InsightError',
+          __typename: "InsightError",
           message: error.message,
-          code: 'CREATION_FAILED',
-          path: ['createInsight'],
-          field: error.field
+          code: "CREATION_FAILED",
+          path: ["createInsight"],
+          field: error.field,
         };
       }
     },
@@ -771,27 +783,27 @@ export const insightResolvers: IResolvers<any, GraphQLContext> = {
     updateInsight: async (_, { id, input }, { dataSources, user, pubsub }) => {
       try {
         const insight = await dataSources.insightService.findById(id);
-        
+
         // Check permissions
         if (!insight.canEdit(user)) {
-          throw new ForbiddenError('Cannot edit this insight');
+          throw new ForbiddenError("Cannot edit this insight");
         }
 
         const updated = await dataSources.insightService.update(id, input);
 
         // Publish subscription
-        pubsub.publish('INSIGHT_UPDATED', {
+        pubsub.publish("INSIGHT_UPDATED", {
           insightUpdated: updated,
-          id
+          id,
         });
 
         return updated;
       } catch (error) {
         return {
-          __typename: 'InsightError',
+          __typename: "InsightError",
           message: error.message,
-          code: 'UPDATE_FAILED',
-          path: ['updateInsight']
+          code: "UPDATE_FAILED",
+          path: ["updateInsight"],
         };
       }
     },
@@ -799,52 +811,56 @@ export const insightResolvers: IResolvers<any, GraphQLContext> = {
     publishInsight: async (_, { id }, { dataSources, user, pubsub }) => {
       try {
         const insight = await dataSources.insightService.findById(id);
-        
+
         if (!insight.canPublish(user)) {
-          throw new ForbiddenError('Cannot publish this insight');
+          throw new ForbiddenError("Cannot publish this insight");
         }
 
         const published = await dataSources.insightService.publish(id);
 
-        pubsub.publish('INSIGHT_UPDATED', {
+        pubsub.publish("INSIGHT_UPDATED", {
           insightUpdated: published,
-          id
+          id,
         });
 
         return published;
       } catch (error) {
         return {
-          __typename: 'InsightError',
+          __typename: "InsightError",
           message: error.message,
-          code: 'PUBLISH_FAILED',
-          path: ['publishInsight']
+          code: "PUBLISH_FAILED",
+          path: ["publishInsight"],
         };
       }
     },
 
     bulkUpdateInsights: async (_, { ids, input }, { dataSources, user }) => {
       try {
-        const result = await dataSources.insightService.bulkUpdate(ids, input, user);
-        
+        const result = await dataSources.insightService.bulkUpdate(
+          ids,
+          input,
+          user
+        );
+
         return {
           success: result.errors.length === 0,
           processedCount: result.processedCount,
-          errors: result.errors
+          errors: result.errors,
         };
       } catch (error) {
         return {
           success: false,
           processedCount: 0,
-          errors: [{ message: error.message, code: 'BULK_UPDATE_FAILED' }]
+          errors: [{ message: error.message, code: "BULK_UPDATE_FAILED" }],
         };
       }
-    }
+    },
   },
 
   Subscription: {
     insightCreated: {
       subscribe: (_, { filter }, { pubsub }) => {
-        return pubsub.asyncIterator('INSIGHT_CREATED');
+        return pubsub.asyncIterator("INSIGHT_CREATED");
       },
       resolve: (payload, { filter }) => {
         // Apply filter to subscription
@@ -852,20 +868,20 @@ export const insightResolvers: IResolvers<any, GraphQLContext> = {
           return null;
         }
         return payload.insightCreated;
-      }
+      },
     },
 
     insightUpdated: {
       subscribe: (_, { id }, { pubsub }) => {
-        return pubsub.asyncIterator('INSIGHT_UPDATED');
+        return pubsub.asyncIterator("INSIGHT_UPDATED");
       },
       resolve: (payload, { id }) => {
         if (id && payload.id !== id) {
           return null;
         }
         return payload.insightUpdated;
-      }
-    }
+      },
+    },
   },
 
   // Type Resolvers with DataLoader
@@ -888,7 +904,7 @@ export const insightResolvers: IResolvers<any, GraphQLContext> = {
     },
 
     isPublished: (insight) => {
-      return insight.status === 'PUBLISHED';
+      return insight.status === "PUBLISHED";
     },
 
     readingTime: (insight) => {
@@ -899,25 +915,27 @@ export const insightResolvers: IResolvers<any, GraphQLContext> = {
 
     wordCount: (insight) => {
       return insight.content.split(/\s+/).length;
-    }
+    },
   },
 
   // Union Type Resolvers
   InsightResult: {
     __resolveType: (obj) => {
       if (obj.__typename) return obj.__typename;
-      return obj.id ? 'Insight' : 'InsightError';
-    }
-  }
+      return obj.id ? "Insight" : "InsightError";
+    },
+  },
 };
 
 // Helper function for subscription filtering
 function matchesFilter(insight: any, filter: InsightFilter): boolean {
   if (filter.status && insight.status !== filter.status) return false;
   if (filter.authorId && insight.authorId !== filter.authorId) return false;
-  if (filter.categoryId && insight.categoryId !== filter.categoryId) return false;
-  if (filter.tags && !filter.tags.some(tag => insight.tags.includes(tag))) return false;
-  
+  if (filter.categoryId && insight.categoryId !== filter.categoryId)
+    return false;
+  if (filter.tags && !filter.tags.some((tag) => insight.tags.includes(tag)))
+    return false;
+
   return true;
 }
 ```
@@ -925,76 +943,84 @@ function matchesFilter(insight: any, filter: InsightFilter): boolean {
 ## DataLoader Implementation
 
 ### Efficient Data Loading
+
 ```typescript
 // src/features/graphql/loaders/index.ts
-import DataLoader from 'dataloader';
-import { GraphQLContext } from '../types/context';
+import DataLoader from "dataloader";
+import { GraphQLContext } from "../types/context";
 
-export function createLoaders(dataSources: any): Record<string, DataLoader<any, any>> {
+export function createLoaders(
+  dataSources: any
+): Record<string, DataLoader<any, any>> {
   return {
     // User loader
     userLoader: new DataLoader<string, User>(
       async (userIds) => {
         const users = await dataSources.userService.findByIds([...userIds]);
-        const userMap = new Map(users.map(user => [user.id, user]));
-        return userIds.map(id => userMap.get(id) || null);
+        const userMap = new Map(users.map((user) => [user.id, user]));
+        return userIds.map((id) => userMap.get(id) || null);
       },
       {
         cache: true,
         maxBatchSize: 100,
-        batchScheduleFn: callback => setTimeout(callback, 1) // Batch within 1ms
+        batchScheduleFn: (callback) => setTimeout(callback, 1), // Batch within 1ms
       }
     ),
 
     // Category loader
-    categoryLoader: new DataLoader<string, Category>(
-      async (categoryIds) => {
-        const categories = await dataSources.categoryService.findByIds([...categoryIds]);
-        const categoryMap = new Map(categories.map(cat => [cat.id, cat]));
-        return categoryIds.map(id => categoryMap.get(id) || null);
-      }
-    ),
+    categoryLoader: new DataLoader<string, Category>(async (categoryIds) => {
+      const categories = await dataSources.categoryService.findByIds([
+        ...categoryIds,
+      ]);
+      const categoryMap = new Map(categories.map((cat) => [cat.id, cat]));
+      return categoryIds.map((id) => categoryMap.get(id) || null);
+    }),
 
     // Comment count loader
-    commentCountLoader: new DataLoader<string, number>(
-      async (insightIds) => {
-        const counts = await dataSources.commentService.getCountsByInsightIds([...insightIds]);
-        return insightIds.map(id => counts[id] || 0);
-      }
-    ),
+    commentCountLoader: new DataLoader<string, number>(async (insightIds) => {
+      const counts = await dataSources.commentService.getCountsByInsightIds([
+        ...insightIds,
+      ]);
+      return insightIds.map((id) => counts[id] || 0);
+    }),
 
     // Insight author loader (for efficient batching)
     insightsByAuthorLoader: new DataLoader<string, Insight[]>(
       async (authorIds) => {
-        const insights = await dataSources.insightService.findByAuthorIds([...authorIds]);
+        const insights = await dataSources.insightService.findByAuthorIds([
+          ...authorIds,
+        ]);
         const insightMap = new Map<string, Insight[]>();
-        
+
         // Group insights by author
-        insights.forEach(insight => {
+        insights.forEach((insight) => {
           const authorInsights = insightMap.get(insight.authorId) || [];
           authorInsights.push(insight);
           insightMap.set(insight.authorId, authorInsights);
         });
-        
-        return authorIds.map(id => insightMap.get(id) || []);
+
+        return authorIds.map((id) => insightMap.get(id) || []);
       }
     ),
 
     // Category children loader
     categoryChildrenLoader: new DataLoader<string, Category[]>(
       async (parentIds) => {
-        const children = await dataSources.categoryService.findChildrenByParentIds([...parentIds]);
+        const children =
+          await dataSources.categoryService.findChildrenByParentIds([
+            ...parentIds,
+          ]);
         const childrenMap = new Map<string, Category[]>();
-        
-        children.forEach(child => {
+
+        children.forEach((child) => {
           const siblings = childrenMap.get(child.parentId!) || [];
           siblings.push(child);
           childrenMap.set(child.parentId!, siblings);
         });
-        
-        return parentIds.map(id => childrenMap.get(id) || []);
+
+        return parentIds.map((id) => childrenMap.get(id) || []);
       }
-    )
+    ),
   };
 }
 
@@ -1008,14 +1034,14 @@ export class LoaderCacheManager {
 
   // Clear specific key from all loaders
   clearKey(key: string): void {
-    Object.values(this.loaders).forEach(loader => {
+    Object.values(this.loaders).forEach((loader) => {
       loader.clear(key);
     });
   }
 
   // Clear all caches
   clearAll(): void {
-    Object.values(this.loaders).forEach(loader => {
+    Object.values(this.loaders).forEach((loader) => {
       loader.clearAll();
     });
   }
@@ -1033,30 +1059,31 @@ export class LoaderCacheManager {
 ## GraphQL Server Setup
 
 ### Apollo Server Configuration
+
 ```typescript
 // src/features/graphql/server.ts
-import { ApolloServer } from '@apollo/server';
-import { expressMiddleware } from '@apollo/server/express4';
-import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
-import { createServer } from 'http';
-import { WebSocketServer } from 'ws';
-import { useServer } from 'graphql-ws/lib/use/ws';
-import { makeExecutableSchema } from '@graphql-tools/schema';
-import { applyMiddleware } from 'graphql-middleware';
-import express from 'express';
-import cors from 'cors';
-import helmet from 'helmet';
+import { ApolloServer } from "@apollo/server";
+import { expressMiddleware } from "@apollo/server/express4";
+import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
+import { createServer } from "http";
+import { WebSocketServer } from "ws";
+import { useServer } from "graphql-ws/lib/use/ws";
+import { makeExecutableSchema } from "@graphql-tools/schema";
+import { applyMiddleware } from "graphql-middleware";
+import express from "express";
+import cors from "cors";
+import helmet from "helmet";
 
-import { typeDefs } from './schema';
-import { resolvers } from './resolvers';
-import { createLoaders } from './loaders';
-import { createDataSources } from './datasources';
-import { authMiddleware } from './middleware/auth.middleware';
-import { rateLimitMiddleware } from './middleware/rate-limit.middleware';
-import { complexityMiddleware } from './middleware/complexity.middleware';
-import { cacheMiddleware } from './middleware/cache.middleware';
-import { errorMiddleware } from './middleware/error.middleware';
-import { metricsMiddleware } from './middleware/metrics.middleware';
+import { typeDefs } from "./schema";
+import { resolvers } from "./resolvers";
+import { createLoaders } from "./loaders";
+import { createDataSources } from "./datasources";
+import { authMiddleware } from "./middleware/auth.middleware";
+import { rateLimitMiddleware } from "./middleware/rate-limit.middleware";
+import { complexityMiddleware } from "./middleware/complexity.middleware";
+import { cacheMiddleware } from "./middleware/cache.middleware";
+import { errorMiddleware } from "./middleware/error.middleware";
+import { metricsMiddleware } from "./middleware/metrics.middleware";
 
 export async function createGraphQLServer() {
   const app = express();
@@ -1082,15 +1109,18 @@ export async function createGraphQLServer() {
   // WebSocket server for subscriptions
   const wsServer = new WebSocketServer({
     server: httpServer,
-    path: '/graphql/subscriptions',
+    path: "/graphql/subscriptions",
   });
 
-  const serverCleanup = useServer({
-    schema: schemaWithMiddleware,
-    context: async (ctx) => {
-      return createGraphQLContext(ctx);
+  const serverCleanup = useServer(
+    {
+      schema: schemaWithMiddleware,
+      context: async (ctx) => {
+        return createGraphQLContext(ctx);
+      },
     },
-  }, wsServer);
+    wsServer
+  );
 
   // Apollo Server
   const server = new ApolloServer({
@@ -1109,33 +1139,36 @@ export async function createGraphQLServer() {
     ],
     formatError: (error) => {
       // Log error details
-      console.error('GraphQL Error:', error);
-      
+      console.error("GraphQL Error:", error);
+
       // Return sanitized error
       return {
         message: error.message,
-        code: error.extensions?.code || 'INTERNAL_ERROR',
+        code: error.extensions?.code || "INTERNAL_ERROR",
         path: error.path,
         locations: error.locations,
       };
     },
-    introspection: process.env.NODE_ENV !== 'production',
-    playground: process.env.NODE_ENV !== 'production',
+    introspection: process.env.NODE_ENV !== "production",
+    playground: process.env.NODE_ENV !== "production",
   });
 
   await server.start();
 
   // Express middleware
   app.use(
-    '/graphql',
+    "/graphql",
     cors<cors.CorsRequest>({
-      origin: process.env.ALLOWED_ORIGINS?.split(',') || ['http://localhost:3000'],
+      origin: process.env.ALLOWED_ORIGINS?.split(",") || [
+        "http://localhost:3000",
+      ],
       credentials: true,
     }),
     helmet({
-      contentSecurityPolicy: process.env.NODE_ENV === 'production' ? undefined : false,
+      contentSecurityPolicy:
+        process.env.NODE_ENV === "production" ? undefined : false,
     }),
-    express.json({ limit: '10mb' }),
+    express.json({ limit: "10mb" }),
     expressMiddleware(server, {
       context: async ({ req, res }) => {
         return createGraphQLContext({ req, res });
@@ -1147,13 +1180,16 @@ export async function createGraphQLServer() {
 }
 
 // Context creation
-async function createGraphQLContext({ req, res }: any): Promise<GraphQLContext> {
+async function createGraphQLContext({
+  req,
+  res,
+}: any): Promise<GraphQLContext> {
   const dataSources = createDataSources();
   const loaders = createLoaders(dataSources);
-  
+
   // Extract user from JWT token
   const user = await extractUserFromToken(req.headers.authorization);
-  
+
   return {
     req,
     res,
@@ -1166,14 +1202,14 @@ async function createGraphQLContext({ req, res }: any): Promise<GraphQLContext> 
 
 // User extraction from JWT
 async function extractUserFromToken(authHeader?: string): Promise<User | null> {
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
     return null;
   }
 
   try {
     const token = authHeader.substring(7);
     const decoded = jwt.verify(token, process.env.JWT_SECRET!);
-    
+
     // Get user from database
     const userService = new UserService();
     return await userService.findById(decoded.sub);
@@ -1186,75 +1222,78 @@ async function extractUserFromToken(authHeader?: string): Promise<User | null> {
 ## GraphQL Middleware
 
 ### Comprehensive Middleware Stack
+
 ```typescript
 // src/features/graphql/middleware/complexity.middleware.ts
-import { shield, rule, and, or, not } from 'graphql-shield';
-import { ForbiddenError } from 'apollo-server-express';
-import depthLimit from 'graphql-depth-limit';
-import costAnalysis from 'graphql-cost-analysis';
+import { shield, rule, and, or, not } from "graphql-shield";
+import { ForbiddenError } from "apollo-server-express";
+import depthLimit from "graphql-depth-limit";
+import costAnalysis from "graphql-cost-analysis";
 
 // Query complexity analysis
 export const complexityMiddleware = shield({
   Query: {
-    insights: rule({ cache: 'contextual' })(
+    insights: rule({ cache: "contextual" })(
       async (parent, args, context, info) => {
         // Limit first parameter for pagination
         if (args.first > 100) {
-          throw new ForbiddenError('Cannot request more than 100 items at once');
+          throw new ForbiddenError(
+            "Cannot request more than 100 items at once"
+          );
         }
         return true;
       }
     ),
-    
-    search: rule({ cache: 'contextual' })(
+
+    search: rule({ cache: "contextual" })(
       async (parent, args, context, info) => {
         // Rate limit search queries
         const key = `search:${context.user?.id || context.req.ip}`;
         const current = await redis.incr(key);
-        
+
         if (current === 1) {
           await redis.expire(key, 60); // 1 minute window
         }
-        
+
         if (current > 10) {
-          throw new ForbiddenError('Too many search requests');
+          throw new ForbiddenError("Too many search requests");
         }
-        
+
         return true;
       }
-    )
+    ),
   },
-  
+
   Mutation: {
     createInsight: isAuthenticated,
     updateInsight: and(isAuthenticated, isOwnerOrAdmin),
     deleteInsight: and(isAuthenticated, isOwnerOrAdmin),
-    bulkUpdateInsights: isAdmin
-  }
+    bulkUpdateInsights: isAdmin,
+  },
 });
 
 // Authentication rules
-const isAuthenticated = rule({ cache: 'contextual' })(
+const isAuthenticated = rule({ cache: "contextual" })(
   async (parent, args, context) => {
     return context.user !== null;
   }
 );
 
-const isAdmin = rule({ cache: 'contextual' })(
-  async (parent, args, context) => {
-    return context.user?.role === 'ADMIN';
-  }
-);
+const isAdmin = rule({ cache: "contextual" })(async (parent, args, context) => {
+  return context.user?.role === "ADMIN";
+});
 
-const isOwnerOrAdmin = rule({ cache: 'contextual' })(
+const isOwnerOrAdmin = rule({ cache: "contextual" })(
   async (parent, args, context, info) => {
-    if (context.user?.role === 'ADMIN') return true;
-    
+    if (context.user?.role === "ADMIN") return true;
+
     // Check if user owns the resource
     const resourceId = args.id || args.input?.id;
     if (!resourceId) return false;
-    
-    const resource = await context.dataSources.insightService.findById(resourceId);
+
+    const resource = await context.dataSources.insightService.findById(
+      resourceId
+    );
     return resource?.authorId === context.user?.id;
   }
 );
@@ -1268,8 +1307,10 @@ export const costAnalysisPlugin = costAnalysis({
   listFactor: 10,
   introspectionCost: 1000,
   createError: (max, actual) => {
-    return new ForbiddenError(`Query cost ${actual} exceeds maximum cost ${max}`);
-  }
+    return new ForbiddenError(
+      `Query cost ${actual} exceeds maximum cost ${max}`
+    );
+  },
 });
 
 // Depth limiting
@@ -1279,15 +1320,16 @@ export const depthLimitPlugin = depthLimit(10);
 ## Federation & Schema Stitching
 
 ### GraphQL Federation Setup
+
 ```typescript
 // src/features/graphql/federation/schema.ts
-import { buildFederatedSchema } from '@apollo/federation';
+import { buildFederatedSchema } from "@apollo/federation";
 
 const typeDefs = gql`
   extend type Query {
     insights(first: Int, after: String): InsightConnection!
   }
-  
+
   type Insight @key(fields: "id") {
     id: ID!
     title: String!
@@ -1295,12 +1337,12 @@ const typeDefs = gql`
     author: User! @external
     category: Category! @external
   }
-  
+
   type User @key(fields: "id") @extends {
     id: ID! @external
     insights: [Insight!]!
   }
-  
+
   type Category @key(fields: "id") @extends {
     id: ID! @external
     insights: [Insight!]!
@@ -1311,33 +1353,33 @@ const resolvers = {
   Insight: {
     __resolveReference: async (insight: { id: string }) => {
       return dataSources.insightService.findById(insight.id);
-    }
+    },
   },
-  
+
   User: {
     insights: async (user: { id: string }) => {
       return dataSources.insightService.findByAuthorId(user.id);
-    }
+    },
   },
-  
+
   Category: {
     insights: async (category: { id: string }) => {
       return dataSources.insightService.findByCategoryId(category.id);
-    }
-  }
+    },
+  },
 };
 
 export const schema = buildFederatedSchema([{ typeDefs, resolvers }]);
 
 // Gateway configuration
 // gateway.ts
-import { ApolloGateway } from '@apollo/gateway';
+import { ApolloGateway } from "@apollo/gateway";
 
 const gateway = new ApolloGateway({
   serviceList: [
-    { name: 'users', url: 'http://localhost:4001/graphql' },
-    { name: 'insights', url: 'http://localhost:4002/graphql' },
-    { name: 'categories', url: 'http://localhost:4003/graphql' },
+    { name: "users", url: "http://localhost:4001/graphql" },
+    { name: "insights", url: "http://localhost:4002/graphql" },
+    { name: "categories", url: "http://localhost:4003/graphql" },
   ],
   buildService: ({ url }) => new RemoteGraphQLDataSource({ url }),
 });
@@ -1351,15 +1393,16 @@ const server = new ApolloServer({
 ## Testing GraphQL APIs
 
 ### Comprehensive Test Suite
+
 ```typescript
 // src/features/graphql/__tests__/insight.resolvers.spec.ts
-import { createTestClient } from 'apollo-server-testing';
-import { ApolloServer } from 'apollo-server-express';
-import { schema } from '../schema';
-import { createMockDataSources } from '../__mocks__/datasources';
-import gql from 'graphql-tag';
+import { createTestClient } from "apollo-server-testing";
+import { ApolloServer } from "apollo-server-express";
+import { schema } from "../schema";
+import { createMockDataSources } from "../__mocks__/datasources";
+import gql from "graphql-tag";
 
-describe('Insight Resolvers', () => {
+describe("Insight Resolvers", () => {
   let server: ApolloServer;
   let query: any;
   let mutate: any;
@@ -1369,9 +1412,9 @@ describe('Insight Resolvers', () => {
       schema,
       context: () => ({
         dataSources: createMockDataSources(),
-        user: { id: '1', role: 'USER' },
-        loaders: createMockLoaders()
-      })
+        user: { id: "1", role: "USER" },
+        loaders: createMockLoaders(),
+      }),
     });
 
     const testClient = createTestClient(server);
@@ -1379,7 +1422,7 @@ describe('Insight Resolvers', () => {
     mutate = testClient.mutate;
   });
 
-  describe('Query.insights', () => {
+  describe("Query.insights", () => {
     const INSIGHTS_QUERY = gql`
       query GetInsights($first: Int, $filter: InsightFilter) {
         insights(first: $first, filter: $filter) {
@@ -1403,10 +1446,10 @@ describe('Insight Resolvers', () => {
       }
     `;
 
-    it('should return published insights', async () => {
+    it("should return published insights", async () => {
       const result = await query({
         query: INSIGHTS_QUERY,
-        variables: { first: 10 }
+        variables: { first: 10 },
       });
 
       expect(result.errors).toBeUndefined();
@@ -1415,23 +1458,23 @@ describe('Insight Resolvers', () => {
       expect(result.data.insights.totalCount).toBe(3);
     });
 
-    it('should filter insights by status', async () => {
+    it("should filter insights by status", async () => {
       const result = await query({
         query: INSIGHTS_QUERY,
         variables: {
           first: 10,
-          filter: { status: 'DRAFT' }
-        }
+          filter: { status: "DRAFT" },
+        },
       });
 
       expect(result.data.insights.edges).toHaveLength(1);
-      expect(result.data.insights.edges[0].node.status).toBe('DRAFT');
+      expect(result.data.insights.edges[0].node.status).toBe("DRAFT");
     });
 
-    it('should handle pagination correctly', async () => {
+    it("should handle pagination correctly", async () => {
       const result = await query({
         query: INSIGHTS_QUERY,
-        variables: { first: 2 }
+        variables: { first: 2 },
       });
 
       expect(result.data.insights.edges).toHaveLength(2);
@@ -1439,7 +1482,7 @@ describe('Insight Resolvers', () => {
     });
   });
 
-  describe('Mutation.createInsight', () => {
+  describe("Mutation.createInsight", () => {
     const CREATE_INSIGHT_MUTATION = gql`
       mutation CreateInsight($input: CreateInsightInput!) {
         createInsight(input: $input) {
@@ -1458,43 +1501,43 @@ describe('Insight Resolvers', () => {
       }
     `;
 
-    it('should create insight successfully', async () => {
+    it("should create insight successfully", async () => {
       const input = {
-        title: 'Test Insight',
-        content: 'This is a test insight',
-        tags: ['test']
+        title: "Test Insight",
+        content: "This is a test insight",
+        tags: ["test"],
       };
 
       const result = await mutate({
         mutation: CREATE_INSIGHT_MUTATION,
-        variables: { input }
+        variables: { input },
       });
 
       expect(result.errors).toBeUndefined();
-      expect(result.data.createInsight.__typename).toBe('Insight');
+      expect(result.data.createInsight.__typename).toBe("Insight");
       expect(result.data.createInsight.title).toBe(input.title);
     });
 
-    it('should return error for invalid input', async () => {
+    it("should return error for invalid input", async () => {
       const input = {
-        title: '', // Invalid: empty title
-        content: 'Content',
-        tags: []
+        title: "", // Invalid: empty title
+        content: "Content",
+        tags: [],
       };
 
       const result = await mutate({
         mutation: CREATE_INSIGHT_MUTATION,
-        variables: { input }
+        variables: { input },
       });
 
-      expect(result.data.createInsight.__typename).toBe('InsightError');
-      expect(result.data.createInsight.code).toBe('VALIDATION_ERROR');
-      expect(result.data.createInsight.field).toBe('title');
+      expect(result.data.createInsight.__typename).toBe("InsightError");
+      expect(result.data.createInsight.code).toBe("VALIDATION_ERROR");
+      expect(result.data.createInsight.field).toBe("title");
     });
   });
 
-  describe('DataLoader Integration', () => {
-    it('should batch load authors efficiently', async () => {
+  describe("DataLoader Integration", () => {
+    it("should batch load authors efficiently", async () => {
       const INSIGHTS_WITH_AUTHORS_QUERY = gql`
         query GetInsightsWithAuthors {
           insights(first: 5) {
@@ -1513,8 +1556,8 @@ describe('Insight Resolvers', () => {
       `;
 
       const mockUserLoader = jest.fn().mockResolvedValue([
-        { id: '1', name: 'User 1' },
-        { id: '2', name: 'User 2' }
+        { id: "1", name: "User 1" },
+        { id: "2", name: "User 2" },
       ]);
 
       // Mock DataLoader to verify batching
@@ -1523,9 +1566,9 @@ describe('Insight Resolvers', () => {
         context: () => ({
           dataSources: createMockDataSources(),
           loaders: {
-            userLoader: { load: mockUserLoader, loadMany: mockUserLoader }
-          }
-        })
+            userLoader: { load: mockUserLoader, loadMany: mockUserLoader },
+          },
+        }),
       });
 
       const testClient = createTestClient(server);
@@ -1538,8 +1581,8 @@ describe('Insight Resolvers', () => {
 });
 
 // Performance testing
-describe('GraphQL Performance', () => {
-  it('should handle complex queries within time limit', async () => {
+describe("GraphQL Performance", () => {
+  it("should handle complex queries within time limit", async () => {
     const COMPLEX_QUERY = gql`
       query ComplexQuery {
         insights(first: 50) {
