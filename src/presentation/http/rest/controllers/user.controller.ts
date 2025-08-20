@@ -175,7 +175,6 @@ export class UserController {
     const { logger } = this.dependencies;
     
     try {
-      console.log('Health check endpoint called');
       logger.info('Health check endpoint called');
       
       // Basic health check - could be expanded to check dependencies
@@ -187,8 +186,6 @@ export class UserController {
           version: process.env.APP_VERSION || '1.0.0'
         }
       });
-      
-      console.log('Health check response sent');
 
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
