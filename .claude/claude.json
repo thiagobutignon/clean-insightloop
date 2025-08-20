@@ -169,12 +169,52 @@
       "tools": ["Read", "Write", "Edit", "MultiEdit", "Grep", "Glob"],
       "crossCutting": true,
       "proactive": false
+    },
+    "epic-agent": {
+      "description": "Epic planning specialist for Clean Architecture projects",
+      "tools": ["Read", "Write", "Edit", "MultiEdit", "Grep", "Glob", "Bash", "Task"],
+      "category": "planning",
+      "proactive": true,
+      "priority": 1
+    },
+    "auth-agent": {
+      "description": "Authentication and authorization specialist",
+      "tools": ["Read", "Write", "Edit", "MultiEdit", "Grep", "Glob", "Bash"],
+      "crossCutting": true,
+      "proactive": true
+    },
+    "documentation-agent": {
+      "description": "Technical documentation specialist",
+      "tools": ["Read", "Write", "Edit", "MultiEdit", "Grep", "Glob", "Bash"],
+      "category": "documentation",
+      "proactive": true
+    },
+    "graphql-agent": {
+      "description": "GraphQL specialist for schema design and resolvers",
+      "tools": ["Read", "Write", "Edit", "MultiEdit", "Grep", "Glob", "Bash"],
+      "layer": "presentation",
+      "proactive": true
+    },
+    "microservices-agent": {
+      "description": "Microservices architecture specialist",
+      "tools": ["Read", "Write", "Edit", "MultiEdit", "Grep", "Glob", "Bash"],
+      "category": "architecture",
+      "proactive": true
     }
   },
   "workflows": {
+    "epic-planning": {
+      "description": "Epic planning and decomposition workflow",
+      "agents": [
+        "epic-agent",
+        "documentation-agent"
+      ],
+      "parallel": false
+    },
     "feature-development": {
       "description": "Complete feature development workflow",
       "agents": [
+        "epic-agent",
         "orchestration-agent",
         "domain-entity-agent",
         "use-case-agent",
@@ -254,7 +294,11 @@
       "infrastructure": ["repository-agent", "database-agent", "cache-agent", "queue-agent"],
       "presentation": ["controller-agent", "api-agent", "frontend-agent", "websocket-agent"]
     },
-    "crossCutting": ["security-agent", "monitoring-agent", "performance-agent", "validation-agent", "mapper-agent"]
+    "crossCutting": ["security-agent", "monitoring-agent", "performance-agent", "validation-agent", "mapper-agent", "auth-agent"],
+    "planning": ["epic-agent"],
+    "documentation": ["documentation-agent"],
+    "architecture": ["microservices-agent"],
+    "apis": ["graphql-agent"]
   },
   "conventions": {
     "naming": {
