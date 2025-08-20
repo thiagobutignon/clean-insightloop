@@ -1,0 +1,316 @@
+{
+  "version": "1.0",
+  "name": "InsightLoop MCP Server v2",
+  "description": "Clean Architecture implementation with Domain-Driven Design, orchestrated by Claude Code AI agents",
+  "defaultAgent": "orchestration-agent",
+  "agents": {
+    "orchestration-agent": {
+      "description": "Master orchestrator for coordinating multiple Claude Code subagents",
+      "tools": ["Task", "Read", "Write", "Edit", "MultiEdit", "Grep", "Glob", "Bash"],
+      "proactive": true,
+      "priority": 1
+    },
+    "domain-entity-agent": {
+      "description": "Domain layer specialist for entities, value objects, and aggregates",
+      "tools": ["Read", "Write", "Edit", "MultiEdit", "Grep", "Glob"],
+      "layer": "domain",
+      "proactive": true,
+      "priority": 2
+    },
+    "use-case-agent": {
+      "description": "Application layer specialist for use cases and business logic",
+      "tools": ["Read", "Write", "Edit", "MultiEdit", "Grep", "Glob"],
+      "layer": "application",
+      "proactive": true,
+      "priority": 3
+    },
+    "repository-agent": {
+      "description": "Data persistence specialist using repository pattern",
+      "tools": ["Read", "Write", "Edit", "MultiEdit", "Grep", "Glob"],
+      "layer": "infrastructure",
+      "proactive": true,
+      "priority": 4
+    },
+    "controller-agent": {
+      "description": "HTTP controller specialist for REST and GraphQL endpoints",
+      "tools": ["Read", "Write", "Edit", "MultiEdit", "Grep", "Glob"],
+      "layer": "presentation",
+      "proactive": true,
+      "priority": 5
+    },
+    "test-agent": {
+      "description": "Testing specialist for unit, integration, and E2E tests",
+      "tools": ["Read", "Write", "Edit", "MultiEdit", "Grep", "Glob", "Bash"],
+      "proactive": true,
+      "priority": 6
+    },
+    "api-agent": {
+      "description": "API design specialist for REST and GraphQL",
+      "tools": ["Read", "Write", "Edit", "MultiEdit", "Grep", "Glob"],
+      "layer": "presentation",
+      "proactive": true
+    },
+    "database-agent": {
+      "description": "Database specialist for schema design and optimization",
+      "tools": ["Read", "Write", "Edit", "MultiEdit", "Grep", "Glob", "Bash"],
+      "layer": "infrastructure",
+      "proactive": true
+    },
+    "frontend-agent": {
+      "description": "Frontend development specialist for React, Vue, Angular",
+      "tools": ["Read", "Write", "Edit", "MultiEdit", "Grep", "Glob", "Bash"],
+      "layer": "presentation",
+      "proactive": true
+    },
+    "security-agent": {
+      "description": "Security specialist for authentication and protection",
+      "tools": ["Read", "Write", "Edit", "MultiEdit", "Grep", "Glob", "Bash"],
+      "crossCutting": true,
+      "proactive": true
+    },
+    "docker-agent": {
+      "description": "Containerization specialist for Docker and Kubernetes",
+      "tools": ["Read", "Write", "Edit", "MultiEdit", "Grep", "Glob", "Bash"],
+      "category": "devops",
+      "proactive": true
+    },
+    "ci-cd-agent": {
+      "description": "CI/CD pipeline specialist for automation",
+      "tools": ["Read", "Write", "Edit", "MultiEdit", "Grep", "Glob", "Bash"],
+      "category": "devops",
+      "proactive": true
+    },
+    "monitoring-agent": {
+      "description": "Observability specialist for logging, metrics, and tracing",
+      "tools": ["Read", "Write", "Edit", "MultiEdit", "Grep", "Glob", "Bash"],
+      "crossCutting": true,
+      "proactive": true
+    },
+    "cache-agent": {
+      "description": "Caching strategy specialist for performance optimization",
+      "tools": ["Read", "Write", "Edit", "MultiEdit", "Grep", "Glob", "Bash"],
+      "layer": "infrastructure",
+      "proactive": true
+    },
+    "queue-agent": {
+      "description": "Message queue specialist for async processing",
+      "tools": ["Read", "Write", "Edit", "MultiEdit", "Grep", "Glob", "Bash"],
+      "layer": "infrastructure",
+      "proactive": true
+    },
+    "websocket-agent": {
+      "description": "Real-time communication specialist for WebSocket and SSE",
+      "tools": ["Read", "Write", "Edit", "MultiEdit", "Grep", "Glob", "Bash"],
+      "layer": "presentation",
+      "proactive": true
+    },
+    "performance-agent": {
+      "description": "Performance optimization specialist",
+      "tools": ["Read", "Write", "Edit", "MultiEdit", "Grep", "Glob", "Bash"],
+      "crossCutting": true,
+      "proactive": true
+    },
+    "testing-e2e-agent": {
+      "description": "End-to-end testing specialist for comprehensive testing",
+      "tools": ["Read", "Write", "Edit", "MultiEdit", "Grep", "Glob", "Bash"],
+      "category": "testing",
+      "proactive": true
+    },
+    "code-reviewer-agent": {
+      "description": "Code review specialist for quality assurance",
+      "tools": ["Read", "Write", "Edit", "MultiEdit", "Grep", "Glob", "Bash"],
+      "category": "quality",
+      "proactive": true
+    },
+    "dto-agent": {
+      "description": "Data Transfer Object specialist with validation",
+      "tools": ["Read", "Write", "Edit", "MultiEdit", "Grep", "Glob"],
+      "layer": "application",
+      "proactive": true
+    },
+    "mapper-agent": {
+      "description": "Data mapping specialist between layers",
+      "tools": ["Read", "Write", "Edit", "MultiEdit", "Grep", "Glob"],
+      "crossCutting": true,
+      "proactive": true
+    },
+    "middleware-agent": {
+      "description": "Middleware specialist for cross-cutting concerns",
+      "tools": ["Read", "Write", "Edit", "MultiEdit", "Grep", "Glob"],
+      "layer": "presentation",
+      "proactive": true
+    },
+    "validation-agent": {
+      "description": "Input validation and business rules specialist",
+      "tools": ["Read", "Write", "Edit", "MultiEdit", "Grep", "Glob"],
+      "crossCutting": true,
+      "proactive": true
+    },
+    "migration-agent": {
+      "description": "Database migration specialist",
+      "tools": ["Read", "Write", "Edit", "MultiEdit", "Grep", "Glob", "Bash"],
+      "layer": "infrastructure",
+      "proactive": true
+    },
+    "seo-agent": {
+      "description": "SEO optimization specialist",
+      "tools": ["Read", "Write", "Edit", "MultiEdit", "Grep", "Glob"],
+      "layer": "presentation",
+      "proactive": false
+    },
+    "ui-ux-agent": {
+      "description": "UI/UX design specialist",
+      "tools": ["Read", "Write", "Edit", "MultiEdit", "Grep", "Glob"],
+      "layer": "presentation",
+      "proactive": false
+    },
+    "typescript-agent": {
+      "description": "TypeScript specialist for advanced patterns",
+      "tools": ["Read", "Write", "Edit", "MultiEdit", "Grep", "Glob"],
+      "crossCutting": true,
+      "proactive": false
+    }
+  },
+  "workflows": {
+    "feature-development": {
+      "description": "Complete feature development workflow",
+      "agents": [
+        "orchestration-agent",
+        "domain-entity-agent",
+        "use-case-agent",
+        "repository-agent",
+        "api-agent",
+        "controller-agent",
+        "test-agent",
+        "testing-e2e-agent",
+        "code-reviewer-agent"
+      ],
+      "parallel": false
+    },
+    "infrastructure-setup": {
+      "description": "Infrastructure and DevOps setup",
+      "agents": [
+        "docker-agent",
+        "ci-cd-agent",
+        "monitoring-agent",
+        "security-agent",
+        "performance-agent"
+      ],
+      "parallel": true
+    },
+    "api-development": {
+      "description": "API-focused development",
+      "agents": [
+        "api-agent",
+        "controller-agent",
+        "validation-agent",
+        "dto-agent",
+        "test-agent"
+      ],
+      "parallel": false
+    },
+    "microservice-extraction": {
+      "description": "Extract microservice from monolith",
+      "agents": [
+        "orchestration-agent",
+        "domain-entity-agent",
+        "api-agent",
+        "database-agent",
+        "docker-agent",
+        "ci-cd-agent",
+        "monitoring-agent"
+      ],
+      "parallel": false
+    },
+    "performance-optimization": {
+      "description": "System performance optimization",
+      "agents": [
+        "performance-agent",
+        "cache-agent",
+        "database-agent",
+        "queue-agent",
+        "monitoring-agent"
+      ],
+      "parallel": false
+    },
+    "security-audit": {
+      "description": "Complete security audit and hardening",
+      "agents": [
+        "security-agent",
+        "validation-agent",
+        "api-agent",
+        "docker-agent",
+        "monitoring-agent"
+      ],
+      "parallel": false
+    }
+  },
+  "architecture": {
+    "style": "clean-architecture",
+    "patterns": ["ddd", "cqrs", "event-driven"],
+    "layers": {
+      "domain": ["domain-entity-agent", "validation-agent"],
+      "application": ["use-case-agent", "dto-agent"],
+      "infrastructure": ["repository-agent", "database-agent", "cache-agent", "queue-agent"],
+      "presentation": ["controller-agent", "api-agent", "frontend-agent", "websocket-agent"]
+    },
+    "crossCutting": ["security-agent", "monitoring-agent", "performance-agent", "validation-agent", "mapper-agent"]
+  },
+  "conventions": {
+    "naming": {
+      "entities": "PascalCase",
+      "valueObjects": "PascalCase",
+      "services": "camelCase",
+      "repositories": "PascalCase",
+      "controllers": "PascalCase",
+      "dtos": "PascalCase"
+    },
+    "files": {
+      "entities": "*.entity.ts",
+      "valueObjects": "*.value-object.ts",
+      "useCases": "*.use-case.ts",
+      "repositories": "*.repository.ts",
+      "controllers": "*.controller.ts",
+      "dtos": "*.dto.ts",
+      "tests": "*.spec.ts"
+    },
+    "directories": {
+      "domain": "src/domain",
+      "application": "src/application",
+      "infrastructure": "src/infrastructure",
+      "presentation": "src/presentation"
+    }
+  },
+  "testing": {
+    "coverage": {
+      "minimum": 80,
+      "target": 90
+    },
+    "agents": {
+      "unit": "test-agent",
+      "integration": "test-agent",
+      "e2e": "testing-e2e-agent",
+      "performance": "performance-agent"
+    }
+  },
+  "quality": {
+    "linting": {
+      "enabled": true,
+      "rules": "strict"
+    },
+    "typeScript": {
+      "strict": true,
+      "noImplicitAny": true
+    },
+    "codeReview": {
+      "agent": "code-reviewer-agent",
+      "automatic": true
+    }
+  },
+  "monitoring": {
+    "metrics": true,
+    "logging": true,
+    "tracing": true,
+    "healthChecks": true
+  }
+}

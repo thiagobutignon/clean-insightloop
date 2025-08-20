@@ -280,6 +280,231 @@ Este documento serve como índice para os exemplos práticos de implementação 
   - Audit trails
   - Usage monitoring
 
+### 10. System Prompts de Referência
+[**→ Ver prompts de sistema das principais IA tools**](./012-system-prompts-reference.md)
+
+#### Conteúdo:
+- **Manus** - Sistema agentic completo
+  - Capacidades do sistema sandbox
+  - Ferramentas de execução e comunicação
+  - Regras operacionais e deployment
+  - Integração com browser e shell
+- **Claude** - Assistente IA geral
+  - Diretrizes de resposta e qualidade
+  - Padrões de código e documentação
+  - Tratamento de erros e personalização
+- **Claude Code** - Ferramenta agentic de programação
+  - Integração MCP nativa
+  - Comandos para Clean Architecture
+  - SDK TypeScript e Python
+  - Configuração de projeto e workflows
+- **Lovable** - AI Editor para web applications
+  - Stack tecnológico (React, Vite, Tailwind)
+  - Comandos XML para operações
+  - Design system e componentes
+  - Workflow de desenvolvimento
+- **Análise Comparativa** - Padrões e insights
+  - Estruturas arquiteturais comuns
+  - Padrões de tool calling
+  - Sistemas de comunicação
+  - Aplicação no nosso projeto
+
+### 11. Context Engineering Best Practices
+[**→ Ver melhores práticas de Context Engineering para MCP**](./013-context-engineering-best-practices.md)
+
+#### Conteúdo:
+- **Fundamentos Matemáticos** - Base teórica
+  - Framework Bayesiano para inferência de contexto
+  - Token budgeting dinâmico
+  - Otimização Pareto para contexto
+  - Algoritmos de assembly contextual
+- **Field Theory Applications** - Aplicações práticas
+  - Context field management
+  - Attractors e boundaries
+  - Resonance patterns
+  - Multi-dimensional context design
+- **Implementações MCP** - Padrões específicos
+  - Adaptive context management
+  - Context orchestration para emergência
+  - Pareto-lang operations
+  - Long-running context management
+- **Product Requirements Prompts** - PRPs para MCP
+  - Sistema de PRPs para desenvolvimento
+  - Templates context-aware
+  - AI development instructions
+  - Validation criteria
+- **Estratégias de Implementação** - Pipelines e métricas
+  - Context engineering pipeline
+  - OpenTelemetry integration
+  - Test suites especializados
+  - Performance optimization
+
+### 12. Prompt Engineering Guide
+[**→ Ver guia completo de Prompt Engineering para MCP**](./014-prompt-engineering-guide.md)
+
+#### Conteúdo:
+- **Fundamentos** - Conceitos essenciais
+  - Elementos de um prompt eficaz
+  - Estrutura e organização
+  - Role definition e task context
+  - Output formatting
+- **Técnicas Fundamentais** - Base do prompt engineering
+  - Zero-shot prompting
+  - Few-shot prompting
+  - Chain-of-Thought (CoT)
+  - Self-consistency
+- **Técnicas Avançadas** - Estratégias sofisticadas
+  - Role prompting e personas
+  - Prompt chaining
+  - Tree-of-Thought (ToT)
+  - Knowledge generation
+- **Otimização** - Melhorando prompts
+  - Clarity optimization
+  - Data separation
+  - Hallucination prevention
+  - Token efficiency
+- **Implementação MCP** - Aplicação prática
+  - Prompt service architecture
+  - Multi-tenant registry
+  - Testing framework
+  - Clean Architecture integration
+- **Métricas e Avaliação** - Qualidade e performance
+  - Quality metrics
+  - Response relevance
+  - Accuracy measurement
+  - Continuous improvement
+
+### 13. Claude Code Resources
+[**→ Ver recursos completos do ecossistema Claude Code**](./015-claude-code-resources.md)
+
+#### Conteúdo:
+- **Ferramentas CLI Principais** - Interfaces de comando
+  - vibe-tools (repo, plan, doc, web, browser)
+  - Basic Memory MCP
+  - MCP Marketplace tools
+  - Interactive CLIs (ccexp, ccusage)
+- **Integração MCP** - Model Context Protocol
+  - Configuração de servidores
+  - Transports (SSE, HTTP, stdio)
+  - OAuth 2.0 e autenticação
+  - Multi-tenancy
+- **SDKs e Integrações** - Desenvolvimento programático
+  - TypeScript SDK
+  - Python SDK (cchooks)
+  - GitHub Actions
+  - VS Code extensions
+- **Slash Commands** - Automação de tarefas
+  - Project management (/todo)
+  - Version control (/create-pull-request)
+  - Documentation (/add-to-changelog)
+  - Git hooks (/husky)
+- **Browser Automation** - Stagehand
+  - Web scraping e testing
+  - Chrome debug mode
+  - Video recording
+  - Interaction automation
+- **Análise e Monitoramento** - Observabilidade
+  - Token usage tracking
+  - Cost analysis
+  - Community leaderboards
+  - Performance metrics
+- **Best Practices** - Padrões recomendados
+  - CLAUDE.md configuration
+  - Project structure
+  - Testing workflows
+  - Development patterns
+
+### 14. RAG Techniques
+[**→ Ver técnicas avançadas de Retrieval-Augmented Generation**](./016-rag-techniques.md)
+
+#### Conteúdo:
+- **Fundamentos de RAG** - Arquitetura básica
+  - Pipeline completo (Retrieval → Context → Generation)
+  - Componentes essenciais (Chunking, Embeddings, Vector Store)
+  - Implementação básica com Clean Architecture
+- **Técnicas de Chunking** - Divisão inteligente
+  - Semantic Chunking
+  - Contextual Chunk Headers (CCH)
+  - Proposition Chunking
+  - Sliding Window com overlap
+- **Query Transformation** - Otimização de queries
+  - Query Rewriting
+  - Step-Back Prompting
+  - Query Decomposition
+  - HyDE (Hypothetical Document Embeddings)
+- **Reranking Strategies** - Reordenação de resultados
+  - LLM-based Reranking
+  - Cross-Encoder Reranking
+  - MMR (Maximal Marginal Relevance)
+  - Diversity Reranking
+- **Hybrid Search** - Combinação de técnicas
+  - Fusion RAG (Vector + BM25)
+  - Ensemble Retrieval
+  - Reciprocal Rank Fusion
+  - Weighted scoring
+- **Advanced Techniques** - Técnicas avançadas
+  - Graph RAG
+  - Adaptive RAG
+  - CRAG (Corrective RAG)
+  - Self-RAG com auto-reflexão
+  - RAG with Reinforcement Learning
+- **Contextual Compression** - Otimização de contexto
+  - Selective Compression
+  - Summary Compression
+  - LLMLingua
+  - Token optimization
+- **Implementação e Otimização** - Produção
+  - Clean Architecture para RAG
+  - Caching strategies
+  - Batch processing
+  - Streaming responses
+  - Métricas e avaliação
+
+### 15. Agent Orchestration
+[**→ Ver arquitetura de agentes para Clean Architecture**](./017-agent-orchestration.md)
+
+#### Conteúdo:
+- **Filosofia de Agent Orchestration** - Princípios fundamentais
+  - Single Responsibility para agentes
+  - Contratos claros entre agentes
+  - Small and focused > large and general
+  - Composabilidade e modularidade
+- **Agentes por Camada** - Clean Architecture
+  - Domain Layer Agents (entity, value-object, service, test)
+  - Application Layer Agents (use-case, dto, mapper, test)
+  - Infrastructure Layer Agents (repository, external-service, cache, test)
+  - Presentation Layer Agents (controller, middleware, validator, test)
+- **Meta-Orchestration** - Coordenação de agentes
+  - Agent Organizer para tarefas complexas
+  - Context Manager para compartilhamento
+  - Performance Monitor para otimização
+  - Task Distributor para paralelização
+- **Padrões de Colaboração** - Estratégias de trabalho
+  - Pipeline Pattern (sequencial)
+  - Scatter-Gather (paralelo)
+  - Supervisor Pattern (hierárquico)
+  - Circuit Breaker (resiliência)
+- **Claude Code Integration** - Comandos e configuração
+  - Slash commands para orquestração
+  - Configuração CLAUDE.md
+  - Parallelization settings
+  - Token budget management
+- **Agentes de Teste** - Testing por camada
+  - Domain Test Agent
+  - Application Test Agent
+  - Infrastructure Test Agent
+  - Presentation Test Agent
+- **Métricas e Observabilidade** - Monitoramento
+  - Agent metrics (performance, quality, resources)
+  - Dashboard de agentes
+  - Health scoring
+  - Cost analysis
+- **Best Practices** - Padrões recomendados
+  - Design de agentes eficientes
+  - Comunicação entre agentes
+  - Otimização de performance
+  - Cache e batch processing
+
 ## Como Usar Este Guia
 
 1. Navegue até a camada de interesse

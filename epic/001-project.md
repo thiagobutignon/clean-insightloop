@@ -1226,6 +1226,92 @@ O Claude Code complementa perfeitamente nossa implementação de Clean Architect
 
 Para documentação completa sobre Claude Code, consulte: [**011-claude-code.md**](./011-claude-code.md)
 
+## System Prompts de Referência
+
+### Análise de IA Tools
+
+A análise de prompts de sistema das principais ferramentas de IA fornece insights valiosos para implementação de sistemas agentic. Documentação completa em: [**012-system-prompts-reference.md**](./012-system-prompts-reference.md)
+
+#### Ferramentas Analisadas
+- **Manus**: Sistema agentic completo com sandbox Linux
+- **Claude**: Assistente IA geral com diretrizes de qualidade
+- **Claude Code**: Ferramenta agentic de programação com MCP nativo
+- **Lovable**: AI Editor para web applications com React/Vite
+
+#### Padrões Identificados
+- Estruturas de capacidades e limitações
+- Protocolos de tool calling
+- Sistemas de comunicação
+- Diretrizes de qualidade e segurança
+
+## Context Engineering Best Practices
+
+### Fundamentos Matemáticos para MCP Servers
+
+Context Engineering representa uma evolução do prompt engineering, focando na otimização dinâmica de contexto para sistemas de IA. Documentação completa em: [**013-context-engineering-best-practices.md**](./013-context-engineering-best-practices.md)
+
+#### Conceitos Fundamentais
+- **Framework Bayesiano**: Inferência de contexto com quantificação de incerteza
+- **Token Budgeting**: Otimização Pareto para alocação eficiente de tokens
+- **Field Theory**: Attractors, boundaries e resonance patterns
+- **Multi-dimensional Context**: Design em camadas (foundational, experiential, contextual)
+
+#### Implementações para MCP
+- **Adaptive Context Management**: Ajuste dinâmico baseado em complexidade
+- **Context Orchestration**: Emergência através de sinergias
+- **Pareto-lang Operations**: Operações otimizadas para contexto
+- **Long-running Context**: Compressão inteligente e persistência
+
+#### Product Requirements Prompts (PRPs)
+- Sistema estruturado para desenvolvimento guiado por IA
+- Templates context-aware para MCP servers
+- Validation criteria e métricas de sucesso
+- AI development instructions específicas
+
+#### Observabilidade e Métricas
+- Token efficiency tracking
+- Context relevance scoring
+- Emergence index measurement
+- OpenTelemetry integration
+
+## Prompt Engineering Guide
+
+### Arte e Ciência de Instruções Eficazes
+
+Prompt Engineering foca na estrutura e clareza das instruções para LLMs, complementando Context Engineering. Documentação completa em: [**014-prompt-engineering-guide.md**](./014-prompt-engineering-guide.md)
+
+#### Elementos Essenciais
+- **Role Definition**: Definir persona e expertise do modelo
+- **Task Context**: Especificar objetivos e tarefas
+- **Tone Context**: Estabelecer tom e estilo de resposta
+- **Examples**: Few-shot learning com exemplos práticos
+- **Output Format**: Estruturação clara da resposta esperada
+
+#### Técnicas Fundamentais
+- **Zero-Shot Prompting**: Instruções sem exemplos prévios
+- **Few-Shot Prompting**: Aprendizado com exemplos
+- **Chain-of-Thought (CoT)**: Raciocínio passo a passo
+- **Self-Consistency**: Múltiplas respostas para maior precisão
+- **Tree-of-Thought**: Exploração de múltiplos caminhos
+
+#### Técnicas Avançadas
+- **Role Prompting**: Atribuição de personas especializadas
+- **Prompt Chaining**: Encadeamento para tarefas complexas
+- **Knowledge Generation**: Geração de conhecimento antes da resposta
+- **Hallucination Prevention**: Técnicas anti-alucinação
+
+#### Otimização e Métricas
+- **Clarity Optimizer**: Remoção de ambiguidades
+- **Data Separator**: Separação clara de dados e instruções
+- **Quality Metrics**: Avaliação de clareza, especificidade e relevância
+- **Token Efficiency**: Otimização do uso de tokens
+
+#### Implementação para MCP
+- **Prompt Service**: Serviço dedicado para MCP servers
+- **Prompt Registry**: Gestão multi-tenant de templates
+- **Testing Framework**: Validação sistemática de prompts
+- **Clean Architecture Integration**: Alinhamento com DDD e Use Cases
+
 ## Exemplos
 
 Para exemplos práticos de implementação e código detalhado, consulte: [**002-examples.md**](./002-examples.md)
@@ -1236,6 +1322,254 @@ Este arquivo contém:
 - Casos de uso completos
 - Testes unitários e de integração
 - Estrutura detalhada de features
+- System prompts de referência
+- Context engineering best practices
+
+## Claude Code Resources
+
+### Ecossistema de Ferramentas e Integrações
+
+O ecossistema Claude Code oferece um conjunto abrangente de ferramentas para desenvolvimento ágil e eficiente. Documentação completa em: [**015-claude-code-resources.md**](./015-claude-code-resources.md)
+
+#### Ferramentas CLI Principais
+- **vibe-tools**: Interface versátil para comandos AI (repo, plan, doc, web, browser)
+- **Basic Memory MCP**: Sistema de conhecimento persistente
+- **MCP Marketplace**: Descoberta e execução de servidores MCP
+
+#### Integração MCP Nativa
+- Configuração de múltiplos servidores (SSE, HTTP, stdio)
+- Autenticação OAuth 2.0 integrada
+- Session management e event store
+- Multi-tenancy com isolamento
+
+#### SDKs e Integrações
+- **TypeScript SDK**: @anthropic-ai/claude-code
+- **Python SDK**: cchooks para hooks personalizados
+- **GitHub Actions**: CI/CD com Claude Code
+- **VS Code Extension**: Interface de chat integrada
+
+#### Ferramentas de Análise
+- **ccusage**: Monitor de uso de tokens em tempo real
+- **viberank**: Leaderboard comunitário de uso
+- **ccexp**: CLI interativo para configuração
+
+#### Slash Commands
+- Gestão de projeto com /todo
+- Versionamento com /add-to-changelog
+- Git workflows com /create-pull-request
+- Hooks com /husky
+
+#### Browser Automation (Stagehand)
+- Automação web com vibe-tools browser
+- Captura de conteúdo e interação
+- Debug mode com Chrome remoto
+- Gravação de vídeo de sessões
+
+#### Best Practices
+- Configuração com CLAUDE.md
+- Estrutura feature-based recomendada
+- Testing e validação com compliance checks
+- Workflow completo de desenvolvimento
+
+## RAG Techniques
+
+### Técnicas Avançadas de Retrieval-Augmented Generation
+
+Implementação de técnicas estado-da-arte para RAG systems. Documentação completa em: [**016-rag-techniques.md**](./016-rag-techniques.md)
+
+#### Técnicas de Chunking
+- **Semantic Chunking**: Divisão baseada em similaridade semântica
+- **Contextual Chunk Headers**: Headers contextuais para melhor recuperação
+- **Proposition Chunking**: Extração de proposições atômicas
+- **Sliding Window**: Chunks com sobreposição configurável
+
+#### Query Transformation
+- **Query Rewriting**: Reformulação para melhor recuperação
+- **Step-Back Prompting**: Queries abstratas para contexto amplo
+- **Query Decomposition**: Divisão em sub-queries
+- **HyDE**: Hypothetical Document Embeddings
+
+#### Reranking Strategies
+- **LLM-based Reranking**: Pontuação de relevância com LLMs
+- **Cross-Encoder Reranking**: Modelos especializados
+- **MMR (Maximal Marginal Relevance)**: Diversidade nos resultados
+- **Ensemble Methods**: Combinação de múltiplos rankers
+
+#### Hybrid Search
+- **Fusion RAG**: Combinação vector search + BM25
+- **Reciprocal Rank Fusion**: Fusão de rankings
+- **Weighted Ensemble**: Pesos adaptativos por tipo de query
+
+#### Advanced Techniques
+- **Graph RAG**: Navegação em grafos de conhecimento
+- **Adaptive RAG**: Seleção dinâmica de estratégias
+- **CRAG (Corrective RAG)**: Auto-correção de recuperação
+- **Self-RAG**: Auto-reflexão e refinamento iterativo
+
+#### Contextual Compression
+- **Selective Compression**: Remoção de partes irrelevantes
+- **Summary Compression**: Sumarização focada na query
+- **LLMLingua**: Compressão com modelos especializados
+
+#### Otimizações
+- **Caching Strategies**: Cache multi-nível
+- **Batch Processing**: Processamento eficiente em lote
+- **Streaming Response**: Respostas em tempo real
+- **Token Optimization**: Uso eficiente de contexto
+
+## Agent Orchestration
+
+### Arquitetura de Agentes para Clean Architecture
+
+Implementação de agentes especializados para cada camada da Clean Architecture, criando um sistema de orquestração onde pequenos agentes focados colaboram para construir aplicações complexas. Documentação completa em: [**017-agent-orchestration.md**](./017-agent-orchestration.md)
+
+#### Agentes por Camada
+
+##### Domain Layer Agents
+- **domain-entity-agent**: Criação e manutenção de entidades
+- **value-object-agent**: Value objects imutáveis
+- **domain-service-agent**: Serviços de domínio complexos
+- **domain-test-agent**: Testes unitários de domínio
+
+##### Application Layer Agents
+- **use-case-agent**: Implementação de casos de uso
+- **dto-agent**: Data Transfer Objects
+- **mapper-agent**: Mapeamento entre camadas
+- **application-test-agent**: Testes de aplicação
+
+##### Infrastructure Layer Agents
+- **repository-agent**: Implementação de repositories
+- **external-service-agent**: Integrações com APIs externas
+- **cache-agent**: Estratégias de cache
+- **infrastructure-test-agent**: Testes de integração
+
+##### Presentation Layer Agents
+- **controller-agent**: Controllers REST/GraphQL/gRPC
+- **middleware-agent**: Middlewares e interceptors
+- **validator-agent**: Validação de entrada
+- **presentation-test-agent**: Testes E2E
+
+#### Meta-Orchestration
+
+##### Agent Organizer
+```typescript
+interface AgentOrganizer {
+  async orchestrateTask(task: ComplexTask): Promise<TaskResult> {
+    const subtasks = await this.decomposeTask(task);
+    const agentAssignments = await this.selectAgents(subtasks);
+    const executionPlan = await this.createExecutionPlan(agentAssignments);
+    const results = await this.executeParallel(executionPlan);
+    return await this.synthesizeResults(results);
+  }
+}
+```
+
+##### Padrões de Colaboração
+- **Pipeline Pattern**: Agentes trabalham em sequência
+- **Scatter-Gather**: Distribuição paralela de trabalho
+- **Supervisor Pattern**: Coordenação hierárquica
+- **Circuit Breaker**: Resiliência e fallback
+
+#### Claude Code Integration
+
+##### Slash Commands
+```bash
+# Criar feature completa com todos os agentes
+/orchestrate create-feature user-management
+
+# Executar agente específico
+/agent domain-entity-agent create User
+
+# Múltiplos agentes em paralelo
+/parallel-agents ["entity User", "entity Role", "value-object Email"]
+
+# Com testes automáticos
+/with-tests use-case-agent create CreateUserUseCase
+```
+
+##### Configuração CLAUDE.md
+```yaml
+agents:
+  parallelization: true
+  maxConcurrent: 5
+  tokenBudget:
+    perAgent: 4000
+    total: 100000
+  caching:
+    enabled: true
+    ttl: 3600
+  monitoring:
+    enabled: true
+    metrics: ['execution_time', 'token_usage', 'error_rate']
+```
+
+#### Métricas e Observabilidade
+
+##### Agent Metrics
+- **Performance**: Execution time, throughput, latency
+- **Quality**: Success rate, error rate, retry rate
+- **Resources**: Token usage, memory, CPU
+- **Collaboration**: Dependency wait time, parallelization efficiency
+
+##### Dashboard de Agentes
+- Status em tempo real de todos os agentes
+- Métricas de performance agregadas
+- Health score e alertas
+- Análise de custos de tokens
+
+#### Benefícios da Arquitetura
+
+1. **Paralelização Natural**: Múltiplos agentes trabalham simultaneamente
+2. **Especialização**: Cada agente é expert em seu domínio específico
+3. **Escalabilidade**: Adicionar novos agentes é simples e modular
+4. **Testabilidade**: Agentes isolados são facilmente testáveis
+5. **Composabilidade**: Agentes podem ser combinados de várias formas
+6. **Manutenibilidade**: Agentes pequenos e focados são fáceis de manter
+
+#### Exemplo de Execução Completa
+
+```typescript
+// Comando: /create-feature user-authentication
+
+// Fase 1: Domain Layer (Paralelo)
+await Promise.all([
+  domainEntityAgent.create('User'),
+  domainEntityAgent.create('Role'),
+  valueObjectAgent.create('Email'),
+  valueObjectAgent.create('Password'),
+  domainServiceAgent.create('AuthenticationService')
+]);
+
+// Fase 2: Application Layer (Dependente)
+await Promise.all([
+  useCaseAgent.create('LoginUseCase'),
+  useCaseAgent.create('RegisterUseCase'),
+  dtoAgent.create('LoginDTO'),
+  dtoAgent.create('RegisterDTO')
+]);
+
+// Fase 3: Infrastructure Layer (Paralelo)
+await Promise.all([
+  repositoryAgent.create('UserRepository'),
+  externalServiceAgent.create('EmailService'),
+  cacheAgent.create('SessionCache')
+]);
+
+// Fase 4: Presentation Layer
+await Promise.all([
+  controllerAgent.create('AuthController'),
+  middlewareAgent.create('AuthMiddleware'),
+  validatorAgent.create('AuthValidator')
+]);
+
+// Fase 5: Testes (Paralelo)
+await Promise.all([
+  domainTestAgent.createAll(),
+  applicationTestAgent.createAll(),
+  infrastructureTestAgent.createAll(),
+  presentationTestAgent.createAll()
+]);
+```
 
 ## Conclusão
 
